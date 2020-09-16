@@ -34,10 +34,13 @@ app.get('/echo', (req, res) => {
     res.send(responseText);
 });
 
-const fauxCompositionData = require('./faux-composition-data')
+// v1 step_sequence
+// const fauxCompositionData = require('./faux-composition-data')
+// v2 step_sequence
+const fauxCompositionData = require('./faux-composition-data-v2')
 app.get('/faux-tracks', (req, res) => {
 
-    // with a search param
+    // SEARCH PARAM
     // const { search = '' } = req.query;
     // let results = fauxCompositionData
     //     .filter(composition =>
@@ -45,14 +48,14 @@ app.get('/faux-tracks', (req, res) => {
     //             .title.toLowerCase()
     //             .includes(search.toLowerCase()));
 
-    // with a public param
-    // due to fetch issues, changed composition.public to string, not boolean
-    const { publicity = '' } = req.query;
+    // PUBLIC PARAM
+    // need to convert boolean toString
+    const { public } = req.query;
     let results = fauxCompositionData
         .filter(composition =>
             composition
-                .public
-                .includes(publicity.toLowerCase()));
+                .public.toString()
+                .includes(public.toLowerCase()));
 
     res
         // .json(fauxCompositionData);

@@ -7,11 +7,16 @@ CREATE TABLE compositions (
     public BOOLEAN NOT NULL,
     tempo INTEGER NOT NULL,
     sequence_length INTEGER NOT NULL,
-    sequence_hihat INTEGER ARRAY,
-    sequence_clap INTEGER ARRAY,
-    sequence_trap INTEGER ARRAY,
-    sequence_bass INTEGER ARRAY,
-    mp3 TEXT
+    mp3 TEXT,
+
+    -- v1: seperate sequences
+    -- sequence_hihat INTEGER ARRAY,
+    -- sequence_clap INTEGER ARRAY,
+    -- sequence_trap INTEGER ARRAY,
+    -- sequence_bass INTEGER ARRAY,
+    
+    -- v2: sequences contained within 
+    step_sequence INTEGER ARRAY[4]
 
     -- user_id INTEGER 
     --     REFERENCES users(id) ON DELETE CASCADE NOT NULL
