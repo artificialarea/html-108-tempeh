@@ -13,6 +13,8 @@ const db = knex({
 
 app.set('db', db)
 
+
+console.log(process.env.API_TOKEN)
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`)
 })

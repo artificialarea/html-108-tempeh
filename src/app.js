@@ -7,21 +7,23 @@ const {
     NODE_ENV
 } = require('./config')
 const errorHandler = require('./middleware/error-handler')
+const validateBearerToken = require('./middleware/validate-bearer-token')
 const pancakeRouter = require('./pancake/pancake-router')
 const userRouter = require('./user/user-router')
 const compositionRouter = require('./composition/composition-router')
 
 const app = express()
 
-const morganOption = (NODE_ENV === 'production') ?
-    'tiny' :
-    'dev';
+const morganOption = (NODE_ENV === 'production') 
+    ? 'tiny' 
+    : 'dev';
 
 app.use(morgan(morganOption, {
     skip: () => NODE_ENV === 'test',
 }))
 app.use(cors())
 app.use(helmet())
+app.use(validateBearerToken)
 
 app.use(express.static('public'))
 
@@ -40,7 +42,7 @@ app.get('/echo', (req, res) => {
 const fauxCompositionData = require('./faux-composition-data-v2')
 app.get('/faux-tracks', (req, res) => {
 
-    // SEARCH PARAM
+    // SEARCH STRING PARAM
     // const { search = '' } = req.query;
     // let results = fauxCompositionData
     //     .filter(composition =>
@@ -48,7 +50,7 @@ app.get('/faux-tracks', (req, res) => {
     //             .title.toLowerCase()
     //             .includes(search.toLowerCase()));
 
-    // PUBLIC PARAM
+    // PUBLIC BOOLEAN PARAM
     // need to convert boolean toString
     const { public } = req.query;
     let results = fauxCompositionData
