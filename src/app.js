@@ -21,8 +21,8 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption, {
     skip: () => NODE_ENV === 'test',
 }))
-app.use(cors())
 app.use(helmet())
+app.use(cors())
 app.use(validateBearerToken)
 
 app.use(express.static('public'))
@@ -36,44 +36,9 @@ app.get('/echo', (req, res) => {
     res.send(responseText);
 });
 
-// v1 step_sequence
-// const fauxCompositionData = require('./faux-composition-data')
-// v2 step_sequence
-const fauxCompositionData = require('./faux-composition-data-v2')
-app.get('/faux-tracks', (req, res) => {
-    let response = fauxCompositionData;
-    const { public, search = '' } = req.query;
-
-    // query validation
-    if (public) {
-        if (public !== 'true' && public !== 'false') {
-            res.status(400).json({ error: "Boolean required" })
-        }
-    }
-
-    // queries valid, so proceed...
-    if (public) {
-        response = response.filter(composition =>
-            composition
-                .public.toString()  // convert boolean toString required
-                .includes(public.toLowerCase()));
-    }
-    if (search) {
-        response = response.filter(composition =>
-            composition
-                .title.toLowerCase()
-                .includes(search.toLowerCase()));
-    }
-
-    res
-        // .json(fauxCompositionData);
-        .json(response);
-
-})
-
 app.use('/api/pancakes', pancakeRouter)
+app.use('/api/compositions', compositionRouter)
 // app.use('/api/users', userRouter)
-// app.user('/api/compositions', compositionRouter)
 app.use(errorHandler)
 
 module.exports = app
