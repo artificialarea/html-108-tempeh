@@ -41,27 +41,33 @@ app.get('/echo', (req, res) => {
 // v2 step_sequence
 const fauxCompositionData = require('./faux-composition-data-v2')
 app.get('/faux-tracks', (req, res) => {
+    let response = fauxCompositionData;
+    const { public, search = '' } = req.query;
 
-    // SEARCH STRING PARAM
-    // const { search = '' } = req.query;
-    // let results = fauxCompositionData
-    //     .filter(composition =>
-    //         composition
-    //             .title.toLowerCase()
-    //             .includes(search.toLowerCase()));
+    // query validation
+    if (public) {
+        if (public !== 'true' && public !== 'false') {
+            res.status(400).json({ error: "Boolean required" })
+        }
+    }
 
-    // PUBLIC BOOLEAN PARAM
-    // need to convert boolean toString
-    const { public } = req.query;
-    let results = fauxCompositionData
-        .filter(composition =>
+    // queries valid, so proceed...
+    if (public) {
+        response = response.filter(composition =>
             composition
-                .public.toString()
+                .public.toString()  // convert boolean toString required
                 .includes(public.toLowerCase()));
+    }
+    if (search) {
+        response = response.filter(composition =>
+            composition
+                .title.toLowerCase()
+                .includes(search.toLowerCase()));
+    }
 
     res
         // .json(fauxCompositionData);
-        .json(results);
+        .json(response);
 
 })
 
