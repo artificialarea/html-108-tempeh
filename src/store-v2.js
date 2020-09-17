@@ -1,4 +1,4 @@
-module.exports = [
+const compositions = [
     {  
         id: 1, 
         user_id: 1,
@@ -48,3 +48,27 @@ module.exports = [
         mp3: '',
     },
 ];
+
+const users = [
+    {
+        id: 1,
+        username: "Sarah",
+        password: "aaAA11!!",        
+        email: "sarah@hotmail.com"
+    },
+    {
+        id: 2,
+        username: "Dolfmeister",
+        password: "aaAA11!!",        
+        email: "dorf@aol.com"
+    },
+    {
+        id: 3,
+        username: "Plastikman",
+        password: "aaAA11!!",        
+        email: null
+    },
+];
+
+
+module.exports = { compositions, users }

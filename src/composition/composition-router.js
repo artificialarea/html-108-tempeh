@@ -5,7 +5,8 @@ const CompositionService = require('./composition-service')
 // v1 step_sequence
 // const store = require('../store-v1')
 // v2 step_sequence
-const store = require('../store-v2')
+const { compositions, users } = require('../store-v2')
+const logger = require('../middleware/logger')
 
 const compositionRouter = express.Router()
 const jsonParser = express.json()
@@ -17,17 +18,14 @@ const serializeComposition = composition => ({
     public: composition.public,
     tempo: composition.tempo,
     sequence_length: composition.sequence_length,
-    sequence_hihat: composition.sequence_hihat,
-    sequence_clap: composition.sequence_clap,
-    sequence_trap: composition.sequence_trap,
-    sequence_bass: composition.sequence_bass,
+    step_sequence: composition.step_sequence,
     mp3: composition.mp3,
 })
 
 compositionRouter
     .route('/')
     .get((req, res) => {
-        let response = store;
+        let response = compositions;
         const { public, search = '' } = req.query;
     
         // query validation
@@ -75,6 +73,23 @@ compositionRouter
     //         mp3,
     //     } = req.body
     // })
+
+compositionRouter
+    .route('/:compositionId')
+    .get((req, res) => {
+        const { compositionId } = req.params;
+        const composition = compositions.find(c => c.id == compositionId); // NOTE use of equality operator (==) for auto type coercion.
+
+        if (!composition) {
+            logger.error(`Composition with id ${compositionId} not found.`)
+            return res
+                .status(404)
+                .send('Track Not Found')
+        }
+        res
+            .status(200)
+            .json(composition)
+    })
 
 
 module.exports = compositionRouter
