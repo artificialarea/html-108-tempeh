@@ -11,6 +11,7 @@ const validateBearerToken = require('./middleware/validate-bearer-token')
 const pancakeRouter = require('./pancake/pancake-router')
 const userRouter = require('./user/user-router')
 const compositionRouter = require('./composition/composition-router')
+const { v4: uuid } = require('uuid');
 
 const app = express()
 

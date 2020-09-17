@@ -1,12 +1,10 @@
 const path = require('path')
 const express = require('express')
-const xss = require('xss')
-const CompositionService = require('./composition-service')
-// v1 step_sequence
-// const store = require('../store-v1')
-// v2 step_sequence
-const { compositions, users } = require('../store-v2')
 const logger = require('../middleware/logger')
+const xss = require('xss')
+const { v4: uuid } = require('uuid');
+const CompositionService = require('./composition-service')
+const { compositions, users } = require('../store-v2')
 
 const compositionRouter = express.Router()
 const jsonParser = express.json()
@@ -58,21 +56,60 @@ compositionRouter
             .json(response);
     
     })
-    // .post(jsonParser, (req, res, next) => {
-    //     const {
-    //         id,
-    //         user_id,
-    //         title,
-    //         public,
-    //         tempo,
-    //         sequence_length,
-    //         sequence_hihat,
-    //         sequence_clap,
-    //         sequence_trap,
-    //         sequence_bass,
-    //         mp3,
-    //     } = req.body
-    // })
+    .post(jsonParser, (req, res) => {
+        console.log(req.body)
+        const {
+            user_id,
+            title,
+            public,
+            tempo,
+            sequence_length,
+            step_sequence,
+            mp3,
+            completed = false
+        } = req.body;
+
+        const id = uuid();
+        const newComposition = {
+            id,
+            user_id,
+            title,
+            public,
+            tempo,
+            sequence_length,
+            step_sequence,
+            mp3,
+        };
+
+        // validation
+        for (const [key, value] of Object.entries(newComposition))
+            if (value == null)
+                return res.status(400).json({
+                    error: {
+                        message: `Missing '${key}' in request body`
+                    }
+                })
+        
+        // user validation unnecessary as automated client-side, but nonetheless...
+        const user = users.find(u => u.id == newComposition.user_id); 
+
+        if (!user) {
+            logger.error(`User with id ${newComposition.user_id} not found.`)
+            return res
+                .status(404)
+                .json('User Not Found')
+        }
+
+        newComposition.completed = completed;
+            
+        compositions.push(newComposition);
+        logger.info(`Composition with id ${id} created`);
+
+        res .status(201)
+            .location(`http://localhost:8000/track/${id}`)
+            .json(newComposition)
+                
+    })
 
 compositionRouter
     .route('/:compositionId')
