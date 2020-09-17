@@ -39,7 +39,7 @@ app.get('/echo', (req, res) => {
 
 app.use('/api/pancakes', pancakeRouter)
 app.use('/api/compositions', compositionRouter)
-// app.use('/api/users', userRouter)
+app.use('/api/users', userRouter)
 app.use(errorHandler)
 
 module.exports = app

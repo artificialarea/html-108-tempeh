@@ -51,7 +51,7 @@ compositionRouter
         if (response.length === 0) {
             response = "No results found."
         }
-        console.log('response: ', response)
+
         res
             .json(response);
         

@@ -4,7 +4,7 @@ const compositions = [
         user_id: 1,
         title: 'Silencio', 
         date_modified: 1212883200000,
-        visible: false, 
+        visible: true, 
         tempo: 120,
         sequence_length: 16,
         step_sequence: [
@@ -33,7 +33,7 @@ const compositions = [
     },
     {  
         id: 3, 
-        user_id: 2,
+        user_id: 1,
         title: 'Browser Noise', 
         date_modified: 1212883200000,
         visible: true,
@@ -52,9 +52,9 @@ const compositions = [
 const users = [
     {
         id: 1,
-        username: "Sarah",
+        username: "Anonymous",
         password: "aaAA11!!",        
-        email: "sarah@hotmail.com"
+        email: "guyfalks@hotmail.com"
     },
     {
         id: 2,
