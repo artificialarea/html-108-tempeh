@@ -14,7 +14,7 @@ VALUES
 INSERT INTO compositions (
     user_id,
     title, 
-    public, 
+    visible, 
     tempo, 
     sequence_length,
     sequence_hihat,

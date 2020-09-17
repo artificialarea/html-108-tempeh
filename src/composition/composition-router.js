@@ -13,7 +13,7 @@ const serializeComposition = composition => ({
     id: composition.id,
     user_id: composition.user_id,
     title: xss(composition.title),
-    public: composition.public,
+    visible: composition.visible,
     tempo: composition.tempo,
     sequence_length: composition.sequence_length,
     step_sequence: composition.step_sequence,
@@ -24,22 +24,22 @@ compositionRouter
     .route('/')
     .get((req, res) => {
         let response = compositions;
-        const { public, search = '' } = req.query;
+        const { visible, search = '' } = req.query;
     
         // query validation
-        if (public) {
-            if (public !== 'true' && public !== 'false') {
+        if (visible) {
+            if (visible !== 'true' && visible !== 'false') {
                 res.status(400).json({ error: "Boolean required" })
             }
         }
     
         // queries valid, so proceed...
         // filter first by public/private tracks
-        if (public) {
+        if (visible) {
             response = response.filter(composition =>
                 composition
-                    .public.toString()  // convert boolean toString required
-                    .includes(public.toLowerCase()));
+                    .visible.toString()  // convert boolean toString required
+                    .includes(visible.toLowerCase()));
         }
         // then filter by title, if applicable
         if (search) {
@@ -51,9 +51,10 @@ compositionRouter
         if (response.length === 0) {
             response = "No results found."
         }
-    
+        console.log('response: ', response)
         res
             .json(response);
+        
     
     })
     .post(jsonParser, (req, res) => {
@@ -61,7 +62,7 @@ compositionRouter
         const {
             user_id,
             title,
-            public,
+            visible,
             tempo,
             sequence_length,
             step_sequence,
@@ -74,7 +75,7 @@ compositionRouter
             id,
             user_id,
             title,
-            public,
+            visible,
             tempo,
             sequence_length,
             step_sequence,

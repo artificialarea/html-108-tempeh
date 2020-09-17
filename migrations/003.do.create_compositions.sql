@@ -4,7 +4,7 @@ CREATE TABLE compositions (
         REFERENCES users(id) ON DELETE CASCADE NOT NULL,
     title TEXT,
     date_modified TIMESTAMPTZ DEFAULT now() NOT NULL,
-    public BOOLEAN NOT NULL,
+    visible BOOLEAN NOT NULL,
     tempo INTEGER NOT NULL,
     sequence_length INTEGER NOT NULL,
     mp3 TEXT,

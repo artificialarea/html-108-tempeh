@@ -3,8 +3,8 @@ const compositions = [
         id: 1, 
         user_id: 1,
         title: 'Silencio', 
-        // date_modified: 1212883200000,
-        public: false, 
+        date_modified: 1212883200000,
+        visible: false, 
         tempo: 120,
         sequence_length: 16,
         step_sequence: [
@@ -19,8 +19,8 @@ const compositions = [
         id: 2, 
         user_id: 1,
         title: 'FullBlastoff', 
-        // date_modified: 1212883200000,
-        public: true,
+        date_modified: 1212883200000,
+        visible: true,
         tempo: 200,
         sequence_length: 16,
         step_sequence: [
@@ -35,8 +35,8 @@ const compositions = [
         id: 3, 
         user_id: 2,
         title: 'Browser Noise', 
-        // date_modified: 1212883200000,
-        public: true,
+        date_modified: 1212883200000,
+        visible: true,
         tempo: 80,
         sequence_length: 16,
         step_sequence: [
