@@ -7,17 +7,6 @@ CREATE TABLE compositions (
     visible BOOLEAN NOT NULL,
     tempo INTEGER NOT NULL,
     sequence_length INTEGER NOT NULL,
-    mp3 TEXT,
-
-    -- v1: seperate sequences
-    -- sequence_hihat INTEGER ARRAY,
-    -- sequence_clap INTEGER ARRAY,
-    -- sequence_trap INTEGER ARRAY,
-    -- sequence_bass INTEGER ARRAY,
-    
-    -- v2: sequences contained within 
+    audio_sequence TEXT ARRAY[4],
     step_sequence INTEGER ARRAY[4]
-
-    -- user_id INTEGER 
-    --     REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );
