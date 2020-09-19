@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS compositions;
+DROP TABLE IF EXISTS tracks;

@@ -4,7 +4,7 @@ const logger = require('../middleware/logger')
 const xss = require('xss')
 const { v4: uuid } = require('uuid');
 const UserService = require('./user-service')
-const { compositions, users } = require('../store-v2')
+const { tracks, users } = require('../store-v2')
 
 const userRouter = express.Router()
 const jsonParser = express.json()

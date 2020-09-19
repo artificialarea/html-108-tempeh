@@ -1,4 +1,4 @@
-const compositions = [
+const tracks = [
     {  
         id: 1, 
         user_id: 1,
@@ -65,4 +65,4 @@ const users = [
 ];
 
 
-module.exports = { compositions, users }
+module.exports = { tracks, users }

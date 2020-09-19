@@ -10,7 +10,7 @@ const errorHandler = require('./middleware/error-handler')
 const validateBearerToken = require('./middleware/validate-bearer-token')
 const pancakeRouter = require('./pancake/pancake-router')
 const userRouter = require('./user/user-router')
-const compositionRouter = require('./composition/composition-router')
+const trackRouter = require('./track/track-router')
 const { v4: uuid } = require('uuid');
 
 const app = express()
@@ -38,7 +38,7 @@ app.get('/echo', (req, res) => {
 });
 
 app.use('/api/pancakes', pancakeRouter)
-app.use('/api/compositions', compositionRouter)
+app.use('/api/tracks', trackRouter)
 app.use('/api/users', userRouter)
 app.use(errorHandler)
 

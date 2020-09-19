@@ -2,7 +2,7 @@ BEGIN;
 
 TRUNCATE
     users,
-    compositions
+    tracks
     RESTART IDENTITY CASCADE;
 
 INSERT INTO users (username, email, password)
@@ -11,7 +11,7 @@ VALUES
     ('ritchie hawtin', null, 'aaAA11!!'),
     ('satchmo', 'satchmo808@gmail.com', 'aaAA11!!');
 
-INSERT INTO compositions (
+INSERT INTO tracks (
     user_id,
     title, 
     visible, 
