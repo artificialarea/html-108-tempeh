@@ -7,7 +7,7 @@ TRUNCATE
 
 INSERT INTO users (username, password, email)
 VALUES
-    ('admin', 'aaAA11!!', null),
+    ('admin_psql', 'aaAA11!!', null),
     ('anonymous', 'aaAA11!!', 'guyfawkes@hushmail.com'),
     ('plastikman', 'aaAA11!!', null);
 
