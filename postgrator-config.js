@@ -1,11 +1,23 @@
 require('dotenv').config();
 
+// MARIUS version
+// Couldn't figure out how to migrate to TEST_DB_URL >_<
+// So disabled... but now pancake tests fail.
+// module.exports = {
+//     "migrationDirectory": "migrations",
+//     "driver": "pg",
+//     "host": process.env.MIGRATION_DB_HOST,
+//     "port": process.env.MIGRATION_DB_PORT,
+//     "database": process.env.MIGRATION_DB_NAME,
+//     "username": process.env.MIGRATION_DB_USER,
+//     "password": process.env.MIGRATION_DB_PASS,
+// }
+
+// THINKFUL version
 module.exports = {
-    "migrationDirectory": "migrations",
+    "migrationsDirectory": "migrations",
     "driver": "pg",
-    "host": process.env.MIGRATION_DB_HOST,
-    "port": process.env.MIGRATION_DB_PORT,
-    "database": process.env.MIGRATION_DB_NAME,
-    "username": process.env.MIGRATION_DB_USER,
-    "password": process.env.MIGRATION_DB_PASS
+    "connectionString": (process.env.NODE_ENV == 'test')
+        ? process.env.TEST_DB_URL
+        : process.env.DB_URL,
 }
