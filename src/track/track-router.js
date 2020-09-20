@@ -116,7 +116,7 @@ trackRouter
     .route('/:trackId')
     .get((req, res) => {
         const { trackId } = req.params;
-        const track = tracks.find(c => c.id == trackId); // NOTE use of equality operator (==) for auto type coercion.
+        const track = tracks.find(track => track.id == trackId); // NOTE use of equality operator (==) for auto type coercion.
 
         if (!track) {
             logger.error(`track with id ${trackId} not found.`)
