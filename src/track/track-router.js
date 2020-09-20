@@ -65,9 +65,9 @@ trackRouter
             visible,
             tempo,
             sequence_length,
+            audio_sequence,
             step_sequence,
-            mp3,
-            completed = false
+            // completed = false
         } = req.body;
 
         const id = uuid();
@@ -78,8 +78,8 @@ trackRouter
             visible,
             tempo,
             sequence_length,
+            audio_sequence,
             step_sequence,
-            mp3,
         };
 
         // validation
@@ -101,7 +101,7 @@ trackRouter
                 .json('User Not Found')
         }
 
-        newtrack.completed = completed;
+        // newtrack.completed = completed;
             
         tracks.push(newtrack);
         logger.info(`track with id ${id} created`);
