@@ -93,19 +93,20 @@ trackRouter
 
 trackRouter
     .route('/:trackId')
-    .get((req, res) => {
-        const { trackId } = req.params;
-        const track = tracks.find(track => track.id == trackId); // NOTE use of equality operator (==) for auto type coercion.
-
-        if (!track) {
-            logger.error(`track with id ${trackId} not found.`)
-            return res
-                .status(404)
-                .send('Track Not Found')
-        }
-        res
-            .status(200)
-            .json(track)
+    .get((req, res, next) => {
+        TracksService.getTrackById(
+            req.app.get('db'),
+            req.params.trackId
+        )
+            .then(track => {
+                if (!track) {
+                    return res.status(404).json({
+                        error: { message: `Track doesn't exist`}
+                    })
+                }
+                res.json(track)
+            })
+            .catch(next)
     })
 
 
