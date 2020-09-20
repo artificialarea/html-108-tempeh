@@ -3,7 +3,7 @@ const express = require('express')
 const logger = require('../middleware/logger')
 const xss = require('xss')
 const { v4: uuid } = require('uuid');
-const trackService = require('./track-service')
+const TrackService = require('./tracks-service')
 const { tracks, users } = require('../store-v2')
 
 const trackRouter = express.Router()
@@ -23,7 +23,7 @@ const serializetrack = track => ({
 
 trackRouter
     .route('/')
-    .get((req, res) => {
+    .get((req, res, next) => {
         let response = tracks;
         const { visible, search = '' } = req.query;
     

@@ -1,7 +1,7 @@
-const trackService = {
+const TrackService = {
 
     //relevant
-    gettracks(db) {
+    getTracks(db) {
         return db
             .from('tracks')
             .select(
@@ -9,7 +9,7 @@ const trackService = {
                 'compositiion.title',
             )
     },
-    gettrackById(db, track_id) {
+    getTrackById(db, track_id) {
         return db
             .from('tracks')
             .select(
@@ -20,7 +20,7 @@ const trackService = {
             .first()
     },
     //relevant
-    inserttrack(db, newtrack) {
+    insertTrack(db, newtrack) {
         return db
             .insert(newtrack)
             .into('tracks')
@@ -30,7 +30,7 @@ const trackService = {
             })
     },
     //relevant
-    updatetrack(db, track_id, newtrack) {
+    updateTrack(db, track_id, newtrack) {
         return db('tracks')
             .where({
                 id: track_id
@@ -39,7 +39,7 @@ const trackService = {
             .returning('*')
     },
     //relevant
-    deletetrack(db, track_id) {
+    deleteTrack(db, track_id) {
         return db('tracks')
             .where({
                 'id': track_id
@@ -48,4 +48,4 @@ const trackService = {
     }
 }
 
-module.exports = trackService
+module.exports = TrackService

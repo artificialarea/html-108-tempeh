@@ -3,7 +3,7 @@ const express = require('express')
 const logger = require('../middleware/logger')
 const xss = require('xss')
 const { v4: uuid } = require('uuid');
-const UserService = require('./user-service')
+const UserService = require('./users-service')
 const { tracks, users } = require('../store-v2')
 
 const userRouter = express.Router()

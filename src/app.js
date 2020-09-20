@@ -9,8 +9,8 @@ const {
 const errorHandler = require('./middleware/error-handler')
 const validateBearerToken = require('./middleware/validate-bearer-token')
 const pancakeRouter = require('./pancake/pancake-router')
-const userRouter = require('./user/user-router')
-const trackRouter = require('./track/track-router')
+const userRouter = require('./users/users-router')
+const trackRouter = require('./tracks/tracks-router')
 const { v4: uuid } = require('uuid');
 
 const app = express()
