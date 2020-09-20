@@ -1,5 +1,5 @@
-const UserService = {
+const UsersService = {
 
 }
 
-module.exports = UserService
+module.exports = UsersService

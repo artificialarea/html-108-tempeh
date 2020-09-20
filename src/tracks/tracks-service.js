@@ -1,51 +1,42 @@
-const TrackService = {
+const TracksService = {
 
-    //relevant
-    getTracks(db) {
+    getAllTracks(db) {
         return db
             .from('tracks')
-            .select(
-                'compositiion.id',
-                'compositiion.title',
-            )
+            .select('*')
     },
-    getTrackById(db, track_id) {
+    getTrackById(db, id) {
         return db
             .from('tracks')
-            .select(
-                'compositiion.id',
-                'compositiion.title',
-            )
-            .where('compositiion.id', track_id)
+            .select('*')
+            .where('id', id)
             .first()
     },
-    //relevant
-    insertTrack(db, newtrack) {
+
+    insertTrack(db, newTrack) {
         return db
-            .insert(newtrack)
+            .insert(newTrack)
             .into('tracks')
             .returning('*')
             .then(rows => {
                 return rows[0]
             })
     },
-    //relevant
-    updateTrack(db, track_id, newtrack) {
-        return db('tracks')
-            .where({
-                id: track_id
-            })
-            .update(newtrack, returning = true)
+
+    updateTrack(db, id, newTrackFields) {
+        return db
+            .from('tracks')
+            .where({ id })
+            .update(newTrackFields, returning = true)
             .returning('*')
     },
-    //relevant
-    deleteTrack(db, track_id) {
-        return db('tracks')
-            .where({
-                'id': track_id
-            })
+
+    deleteTrack(db, id) {
+        return db
+            .from('tracks')
+            .where({ id })
             .delete()
     }
 }
 
-module.exports = TrackService
+module.exports = TracksService
