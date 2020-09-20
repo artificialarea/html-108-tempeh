@@ -26,46 +26,11 @@ trackRouter
     .get((req, res, next) => {
         TracksService.getAllTracks(req.app.get('db'))
             .then(tracks => {
-                // res.json(tracks.map(serializeTrack))
-                res.json(tracks)
+                // TODO: Reintroduce filtering by visible and search queries, per branch 'pre-db'
+                res.json(tracks.map(serializeTrack))
+                // res.json(tracks)
             })
             .catch(next)
-
-
-
-        // PRE SERVICES + KNEX DB
-        // let response = tracks;
-        // const { visible, search = '' } = req.query;
-    
-        // // query validation
-        // if (visible) {
-        //     if (visible !== 'true' && visible !== 'false') {
-        //         res.status(400).json({ error: "Boolean required" })
-        //     }
-        // }
-    
-        // // queries valid, so proceed...
-        // // filter first by public/private tracks
-        // if (visible) {
-        //     response = response.filter(track =>
-        //         track
-        //             .visible.toString()  // convert boolean toString required
-        //             .includes(visible.toLowerCase()));
-        // }
-        // // then filter by title, if applicable
-        // if (search) {
-        //     response = response.filter(track =>
-        //         track
-        //             .title.toLowerCase()
-        //             .includes(search.toLowerCase()));
-        // }
-        // if (response.length === 0) {
-        //     response = "No results found."
-        // }
-
-        // res
-        //     .json(response);
-        
     
     })
     .post(jsonParser, (req, res) => {
