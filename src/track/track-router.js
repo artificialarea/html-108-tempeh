@@ -13,11 +13,12 @@ const serializetrack = track => ({
     id: track.id,
     user_id: track.user_id,
     title: xss(track.title),
+    date_modified: track.date_modified,
     visible: track.visible,
     tempo: track.tempo,
     sequence_length: track.sequence_length,
+    audio_sequence: track.audio_sequence,
     step_sequence: track.step_sequence,
-    mp3: track.mp3,
 })
 
 trackRouter
@@ -62,6 +63,7 @@ trackRouter
         const {
             user_id,
             title,
+            // date_modified,
             visible,
             tempo,
             sequence_length,
@@ -71,10 +73,12 @@ trackRouter
         } = req.body;
 
         const id = uuid();
+        const date_modified = new Date();
         const newtrack = {
             id,
             user_id,
             title,
+            date_modified,
             visible,
             tempo,
             sequence_length,
