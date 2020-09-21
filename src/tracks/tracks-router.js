@@ -4,7 +4,7 @@ const logger = require('../middleware/logger')
 const xss = require('xss')
 const TracksService = require('./tracks-service')
 
-const trackRouter = express.Router()
+const tracksRouter = express.Router()
 const jsonParser = express.json()
 
 const serializeTrack = track => ({
@@ -19,7 +19,7 @@ const serializeTrack = track => ({
     step_sequence: track.step_sequence,
 })
 
-trackRouter
+tracksRouter
     .route('/')
     .get((req, res, next) => {
         TracksService.getAllTracks(req.app.get('db'))
@@ -70,7 +70,7 @@ trackRouter
             .catch(next)         
     })
 
-trackRouter
+tracksRouter
     .route('/:trackId')
     .all((req, res, next) => {
         TracksService.getTrackById(
@@ -113,13 +113,13 @@ trackRouter
         };
 
         // validation
-        for (const [key, value] of Object.entries(trackToUpdate))
-            if (value == null)
-                return res.status(400).json({
-                    error: {
-                        message: `Missing '${key}' in request body`
-                    }
-                })
+        const numberOfValues = Object.values(trackToUpdate).filter(Boolean).length;
+        if (numberOfValues === 0)
+            return res.status(400).json({
+                error: {
+                    message: `Request body must contain either 'user_id', 'title', 'visible', 'tempo', 'sequence_length', 'audio_sequence' or 'step_sequence'`
+                }
+            })
         
         TracksService.updateTrack(
             req.app.get('db'),
@@ -142,4 +142,4 @@ trackRouter
             .catch(next)
     })
 
-module.exports = trackRouter
+module.exports = tracksRouter
