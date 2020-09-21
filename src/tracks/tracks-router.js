@@ -32,7 +32,6 @@ trackRouter
     
     })
     .post(jsonParser, (req, res, next) => {
-        console.log(req.body)
         const {
             user_id,
             title,
@@ -42,7 +41,7 @@ trackRouter
             audio_sequence,
             step_sequence,
         } = req.body;
-        
+
         const newTrack = {
             user_id,
             title,
@@ -106,6 +105,46 @@ trackRouter
             })
             .catch(next)
     })
+    .patch(jsonParser, (req, res, next) => {
+        const {
+            user_id,
+            title,
+            visible,
+            tempo,
+            sequence_length,
+            audio_sequence,
+            step_sequence,
+        } = req.body;
+        
+        const trackToUpdate = {
+            user_id,
+            title,
+            visible,
+            tempo,
+            sequence_length,
+            audio_sequence,
+            step_sequence,
+        };
 
+        // validation
+        for (const [key, value] of Object.entries(trackToUpdate))
+            if (value == null)
+                return res.status(400).json({
+                    error: {
+                        message: `Missing '${key}' in request body`
+                    }
+                })
+        
+        TracksService.updateTrack(
+            req.app.get('db'),
+            req.params.trackId,
+            trackToUpdate
+        )
+            .then(track => {
+                res.status(204).end()
+            })
+            .catch(next)
+                
+    })
 
 module.exports = trackRouter
