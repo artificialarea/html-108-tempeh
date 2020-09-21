@@ -1,9 +1,10 @@
+require('dotenv').config()
 process.env.TZ = 'UTC'
 process.env.NODE_ENV = 'test'
-require('dotenv').config()
+process.env.API_TOKEN = 'test-auth-token'
 
 // for pancake
-process.env.TEST_DB_URL = process.env.DB_URL
+// process.env.TEST_DB_URL = process.env.DB_URL
 
 const {
     expect

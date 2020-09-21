@@ -15,18 +15,66 @@ describe(`Tracks API Endpoints`, () => {
         app.set('db', db)
     });
     after('disconnect from the database', () => db.destroy());
-
+    
     before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
-
+    
     afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
 
+    describe('Unauthorized requests', () => {
 
-    describe.skip('GET /api/tracks', () => {
+        it(`responds with 401 Unauthorized for GET /api/tracks`, () => {
+            return supertest(app)
+                .get('/api/tracks')
+                .expect(401, { error: 'Unauthorized request' })
+        });
+
+        it(`responds with 401 Unauthorized for POST /api/tracks`, () => {
+            return supertest(app)
+                .post('/api/tracks')
+                .send({  
+                    // id: 1, 
+                    user_id: 1,
+                    title: 'Unauthorized and Untitled', 
+                    // date_modified: new Date('2029-01-22T16:28:32.615Z'),
+                    visible: true, 
+                    tempo: 120,
+                    sequence_length: 16,
+                    audio_sequence: ["hihat", "clap", "trap", "bass"],
+                    step_sequence: [
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                    ]
+                })
+                .expect(401, { error: 'Unauthorized request' })
+        });
+
+        it(`responds with 401 Unauthorized for GET /api/tracks/:trackId`, () => {
+            const testTracks = makeTracksArray();
+            const secondTrack = testTracks[1];
+            return supertest(app)
+                .get(`/api/tracks/${secondTrack.id}`)
+                .expect(401, { error: 'Unauthorized request' })
+        });
+
+        it(`responds with 401 Unauthorized for DELETE /api/tracks/:trackId`, () => {
+            const testTracks = makeTracksArray();
+            const secondTrack = testTracks[1];
+            return supertest(app)
+                .delete(`/api/tracks/${secondTrack.id}`)
+                .expect(401, { error: 'Unauthorized request' })
+        });
+    });
+    
+
+    describe('GET /api/tracks', () => {
 
         context('Given no tracks', () => {
             it('responds with 200 and an empty list', () => {
                 return supertest(app)
                     .get('/api/tracks')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)  // via setup.js
                     .expect(200, [])
             });
         });
@@ -35,21 +83,24 @@ describe(`Tracks API Endpoints`, () => {
         
             const testUsers = makeUsersArray();
             const testTracks = makeTracksArray();
-            
-            beforeEach('insert tracks into db', () => {
-                return db
+
+            // beforeEach error... can't find any issue with my Foreign Key??
+            // error: insert into "tracks" - insert or update on table "tracks" violates foreign key constraint "tracks_user_id_fkey"
+            beforeEach('insert users & tracks into db', () => {
+                return db  
                     .into('users')
                     .insert(testUsers)
                     .then(() => {
                         return db
                             .into('tracks')
-                            .insert(testTracks);
+                            .insert(testTracks)
                     })
             })
             
             it('responds with 200 and all of the tracks', function () {
                 return supertest(app)
                     .get('/api/tracks')
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                     .expect(200, testTracks)
             });
             

@@ -1,4 +1,5 @@
 -- ALTER TABLE tracks
 --   DROP COLUMN IF EXISTS user_id;
 
+DROP TABLE IF EXISTS tracks;
 DROP TABLE IF EXISTS users;

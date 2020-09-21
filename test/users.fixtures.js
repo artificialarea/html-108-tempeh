@@ -10,13 +10,13 @@ function makeUsersArray() {
             id: 2,
             username: 'Dolfmeister',
             password: 'aaAA11!!',
-            email: null,
+            email: 'somebody2@somewhere.com',
         },
         {
             id: 3,
             username: 'Plastikman',
             password: 'aaAA11!!',
-            email: 'somebody@somewhere.com',
+            email: 'somebody3@somewhere.com',
         },
     ];
 }; 
