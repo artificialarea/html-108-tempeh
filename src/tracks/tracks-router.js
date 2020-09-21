@@ -2,9 +2,7 @@ const path = require('path')
 const express = require('express')
 const logger = require('../middleware/logger')
 const xss = require('xss')
-const { v4: uuid } = require('uuid');
 const TracksService = require('./tracks-service')
-// const { tracks, users } = require('../store-v2')
 
 const trackRouter = express.Router()
 const jsonParser = express.json()
@@ -29,7 +27,6 @@ trackRouter
                 res.json(tracks.map(serializeTrack))
             })
             .catch(next)
-    
     })
     .post(jsonParser, (req, res, next) => {
         const {
@@ -70,8 +67,7 @@ trackRouter
                     .location(path.posix.join(req.originalUrl, `/${track.id}`)) // re:posix and req.originalUrl, see details: https://courses.thinkful.com/node-postgres-v1/checkpoint/17#-api-prefix
                     .json(serializeTrack(track))
             })
-            .catch(next)
-                
+            .catch(next)         
     })
 
 trackRouter
@@ -94,16 +90,6 @@ trackRouter
     })
     .get((req, res, next) => {
         res.json(serializeTrack(res.track))
-    })
-    .delete((req, res, next) => {
-        TracksService.deleteTrack(
-            req.app.get('db'),
-            req.params.trackId
-        )
-            .then(() => {
-                res.status(204).end()
-            })
-            .catch(next)
     })
     .patch(jsonParser, (req, res, next) => {
         const {
@@ -143,8 +129,17 @@ trackRouter
             .then(track => {
                 res.status(204).end()
             })
+            .catch(next) 
+    })
+    .delete((req, res, next) => {
+        TracksService.deleteTrack(
+            req.app.get('db'),
+            req.params.trackId
+        )
+            .then(() => {
+                res.status(204).end()
+            })
             .catch(next)
-                
     })
 
 module.exports = trackRouter

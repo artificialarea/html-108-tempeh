@@ -5,6 +5,7 @@ const TracksService = {
             .from('tracks')
             .select('*')
     },
+    
     getTrackById(db, id) {
         return db
             .from('tracks')
