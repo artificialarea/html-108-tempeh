@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const {CLIENT_ORIGIN} = require('./config');
 const helmet = require('helmet')
 const {
     NODE_ENV
@@ -27,7 +26,7 @@ app.use(helmet())
 // per https://courses.thinkful.com/fs-capstone-1-v1/checkpoint/6#setting-up-cross-origin-resource-sharing-cors-
 app.use(    
     cors({
-        origin: CLIENT_ORIGIN
+        origin: '*'
     })
 );
 
