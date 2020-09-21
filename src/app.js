@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const {CLIENT_ORIGIN} = require('./config');
 const helmet = require('helmet')
 const {
     NODE_ENV
@@ -11,7 +12,6 @@ const validateBearerToken = require('./middleware/validate-bearer-token')
 const pancakeRouter = require('./pancake/pancake-router')
 const usersRouter = require('./users/users-router')
 const tracksRouter = require('./tracks/tracks-router')
-const { v4: uuid } = require('uuid');
 
 const app = express()
 
@@ -23,7 +23,16 @@ app.use(morgan(morganOption, {
     skip: () => NODE_ENV === 'test',
 }))
 app.use(helmet())
-app.use(cors())
+// app.use(cors())
+// per https://courses.thinkful.com/fs-capstone-1-v1/checkpoint/6#setting-up-cross-origin-resource-sharing-cors-
+app.use(    
+    cors({
+        origin: CLIENT_ORIGIN
+    })
+);
+
+
+
 app.use(validateBearerToken)
 
 app.use(express.static('public'))
