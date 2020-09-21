@@ -24,7 +24,7 @@ Init boilerplate: https://github.com/artificialarea/node-postgres-boilerplate
    MIGRATION_DB_NAME=
    MIGRATION_DB_USER=
    MIGRATION_DB_PASS=
-   DB_URL="postgresql://USERNAME@localhost/DATABASE_NAME"
+   DATABASE_URL="postgresql://USERNAME@localhost/DATABASE_NAME"
   ```
 * Run the command `npm run migrate -- 1` to create the database tables
 * run the command `npm t`
