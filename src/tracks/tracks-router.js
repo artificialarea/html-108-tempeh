@@ -26,9 +26,7 @@ trackRouter
     .get((req, res, next) => {
         TracksService.getAllTracks(req.app.get('db'))
             .then(tracks => {
-                // TODO: Reintroduce filtering by visible and search queries, per branch 'pre-db'
                 res.json(tracks.map(serializeTrack))
-                // res.json(tracks)
             })
             .catch(next)
     
@@ -79,7 +77,7 @@ trackRouter
 
 trackRouter
     .route('/:trackId')
-    .get((req, res, next) => {
+    .all((req, res, next) => {
         TracksService.getTrackById(
             req.app.get('db'),
             req.params.trackId
@@ -90,11 +88,24 @@ trackRouter
                         error: { message: `Track doesn't exist`}
                     })
                 }
-                res.json(track)
+                res.track = track
+                next()
+            })
+            .catch(next)
+    })
+    .get((req, res, next) => {
+        res.json(serializeTrack(res.track))
+    })
+    .delete((req, res, next) => {
+        TracksService.deleteTrack(
+            req.app.get('db'),
+            req.params.trackId
+        )
+            .then(() => {
+                res.status(204).end()
             })
             .catch(next)
     })
 
 
 module.exports = trackRouter
-
