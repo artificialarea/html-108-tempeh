@@ -33,27 +33,21 @@ trackRouter
             .catch(next)
     
     })
-    .post(jsonParser, (req, res) => {
+    .post(jsonParser, (req, res, next) => {
         console.log(req.body)
         const {
             user_id,
             title,
-            // date_modified,
             visible,
             tempo,
             sequence_length,
             audio_sequence,
             step_sequence,
-            // completed = false
         } = req.body;
-
-        const id = uuid();
-        const date_modified = new Date();
-        const newtrack = {
-            id,
+        
+        const newTrack = {
             user_id,
             title,
-            date_modified,
             visible,
             tempo,
             sequence_length,
@@ -62,7 +56,7 @@ trackRouter
         };
 
         // validation
-        for (const [key, value] of Object.entries(newtrack))
+        for (const [key, value] of Object.entries(newTrack))
             if (value == null)
                 return res.status(400).json({
                     error: {
@@ -70,24 +64,16 @@ trackRouter
                     }
                 })
         
-        // user validation unnecessary as automated client-side, but nonetheless...
-        const user = users.find(u => u.id == newtrack.user_id); 
-
-        if (!user) {
-            logger.error(`User with id ${newtrack.user_id} not found.`)
-            return res
-                .status(404)
-                .json('User Not Found')
-        }
-
-        // newtrack.completed = completed;
-            
-        tracks.push(newtrack);
-        logger.info(`track with id ${id} created`);
-
-        res .status(201)
-            .location(`http://localhost:8000/track/${id}`)
-            .json(newtrack)
+        TracksService.insertTrack(
+            req.app.get('db'),
+            newTrack
+        )
+            .then(track => {
+                res .status(201)
+                    .location(path.posix.join(req.originalUrl, `/${track.id}`)) // re:posix and req.originalUrl, see details: https://courses.thinkful.com/node-postgres-v1/checkpoint/17#-api-prefix
+                    .json(serializeTrack(track))
+            })
+            .catch(next)
                 
     })
 
