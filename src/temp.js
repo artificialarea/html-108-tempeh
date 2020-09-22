@@ -1,0 +1,12 @@
+const {API_BASE_URL} = require('./config');
+
+export const fetchUserProfile = (userid) => dispatch => {
+    fetch(`${API_BASE_URL}/users/${userId}`).then(res => {
+        if (!res.ok) {
+            return Promise.reject(res.statusText);
+        }
+        return res.json();
+    }).then(userProfile => {
+        dispatch(fetchUserProfileSuccess(userProfile));
+    }).catch(err => dispatch(fetchUserProfileError(err)));
+};
