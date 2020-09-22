@@ -1,7 +1,7 @@
 const knex = require('knex')
 const app = require('../src/app');
 
-describe.skip('Pancake API:', function () {
+describe('Pancake API:', function () {
     let db;
     let pancakes = [
         {
@@ -49,6 +49,7 @@ describe.skip('Pancake API:', function () {
         it('should respond to GET `/api/pancakes` with an array of pancakes and status 200', function () {
             return supertest(app)
                 .get('/api/pancakes')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .expect(200)
                 .expect(res => {
                     expect(res.body).to.be.a('array');
@@ -77,6 +78,7 @@ describe.skip('Pancake API:', function () {
                     doc = _doc
                     return supertest(app)
                         .get(`/api/pancakes/${doc.id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .expect(200);
                 })
                 .then(res => {
@@ -91,6 +93,7 @@ describe.skip('Pancake API:', function () {
         it('should respond with a 404 when given an invalid id', () => {
             return supertest(app)
                 .get('/api/pancakes/aaaaaaaaaaaa')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .expect(404);
         });
 
@@ -107,6 +110,7 @@ describe.skip('Pancake API:', function () {
 
             return supertest(app)
                 .post('/api/pancakes')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(newItem)
                 .expect(201)
                 .expect(res => {
@@ -124,6 +128,7 @@ describe.skip('Pancake API:', function () {
             };
             return supertest(app)
                 .post('/api/pancakes')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(badItem)
                 .expect(400);
         });
@@ -150,6 +155,7 @@ describe.skip('Pancake API:', function () {
                     doc = _doc
                     return supertest(app)
                         .patch(`/api/pancakes/${doc.id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .send(item)
                         .expect(200);
                 })
@@ -171,6 +177,7 @@ describe.skip('Pancake API:', function () {
                 .then(doc => {
                     return supertest(app)
                         .patch(`/api/pancakes/${doc.id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .send(badItem)
                         .expect(400);
                 })
@@ -182,6 +189,7 @@ describe.skip('Pancake API:', function () {
             };
             return supertest(app)
                 .patch('/api/pancakes/aaaaaaaaaaaaaaaaaaaaaaaa')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .send(item)
                 .expect(404);
         });
@@ -201,6 +209,7 @@ describe.skip('Pancake API:', function () {
                 .then(doc => {
                     return supertest(app)
                         .delete(`/api/pancakes/${doc.id}`)
+                        .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                         .expect(204);
                 })
         });
@@ -209,6 +218,7 @@ describe.skip('Pancake API:', function () {
 
             return supertest(app)
                 .delete('/api/pancakes/aaaaaaaaaaaaaaaaaaaaaaaa')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
                 .expect(404);
         });
     });
