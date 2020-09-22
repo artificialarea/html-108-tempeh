@@ -4,7 +4,7 @@ const { makeTracksArray, makeMaliciousTrack } = require('./tracks.fixtures');
 const { makeUsersArray } = require('./users.fixtures');
 const supertest = require('supertest');
 
-describe.skip(`Tracks API Endpoints`, () => {
+describe(`Tracks API Endpoints`, () => {
     let db;
 
     before('make knex instance', () => {
@@ -84,14 +84,16 @@ describe.skip(`Tracks API Endpoints`, () => {
             const testUsers = makeUsersArray();
             const testTracks = makeTracksArray();
 
-            // beforeEach error... can't find any issue with my Foreign Key??
-            // error: insert into "tracks" - insert or update on table "tracks" violates foreign key constraint "tracks_user_id_fkey"
+            // ISSUE
+            // if remove .catch(), get error 
+            // insert into "tracks" - insert or update on table "tracks" violates foreign key constraint "tracks_user_id_fkey"
+            // with .catch(), get error 
+            // actual [] (table not populated???)
             beforeEach('insert users & tracks into db', () => {
                 return db  
                     .into('users')
                     .insert(testUsers)
-                    .then((something) => {
-                        console.log(something)
+                    .then(() => {
                         return db
                             .into('tracks')
                             .insert(testTracks)
