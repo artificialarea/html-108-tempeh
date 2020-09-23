@@ -15,8 +15,8 @@ const serializeTrack = track => ({
     visible: track.visible,
     tempo: track.tempo,
     sequence_length: track.sequence_length,
-    audio_sequence: track.audio_sequence,
-    step_sequence: track.step_sequence,
+    notes: track.notes,
+    checked: track.checked,
 })
 
 tracksRouter
@@ -35,8 +35,8 @@ tracksRouter
             visible,
             tempo,
             sequence_length,
-            audio_sequence,
-            step_sequence,
+            notes,
+            checked,
         } = req.body;
 
         const newTrack = {
@@ -45,8 +45,8 @@ tracksRouter
             visible,
             tempo,
             sequence_length,
-            audio_sequence,
-            step_sequence,
+            notes,
+            checked,
         };
 
         // validation
@@ -98,8 +98,8 @@ tracksRouter
             visible,
             tempo,
             sequence_length,
-            audio_sequence,
-            step_sequence,
+            notes,
+            checked,
         } = req.body;
         
         const trackToUpdate = {
@@ -108,8 +108,8 @@ tracksRouter
             visible,
             tempo,
             sequence_length,
-            audio_sequence,
-            step_sequence,
+            notes,
+            checked,
         };
 
         // validation
@@ -117,7 +117,7 @@ tracksRouter
         if (numberOfValues === 0)
             return res.status(400).json({
                 error: {
-                    message: `Request body must contain either 'user_id', 'title', 'visible', 'tempo', 'sequence_length', 'audio_sequence' or 'step_sequence'`
+                    message: `Request body must contain either 'user_id', 'title', 'visible', 'tempo', 'sequence_length', 'notes' or 'checked'`
                 }
             })
         

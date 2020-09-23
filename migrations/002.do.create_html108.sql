@@ -19,5 +19,6 @@ CREATE TABLE tracks (
     sequence_length INTEGER NOT NULL,
     notes TEXT ARRAY[4],
     checked BOOLEAN ARRAY[4],
+    -- checked TEXT ARRAY[4],
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );

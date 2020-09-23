@@ -39,8 +39,8 @@ describe(`Tracks API Endpoints`, () => {
                     visible: true, 
                     tempo: 120,
                     sequence_length: 16,
-                    audio_sequence: ["hihat", "clap", "trap", "bass"],
-                    step_sequence: [
+                    notes: ["hihat", "clap", "trap", "bass"],
+                    checked: [
                         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],

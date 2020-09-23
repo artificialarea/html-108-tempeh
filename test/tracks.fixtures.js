@@ -9,8 +9,8 @@ function makeTracksArray() {
             visible: true, 
             tempo: 120,
             sequence_length: 16,
-            audio_sequence: ["hihat", "clap", "trap", "bass"],
-            step_sequence: [
+            notes: ["hihat", "clap", "trap", "bass"],
+            checked: [
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -25,8 +25,8 @@ function makeTracksArray() {
             visible: true,
             tempo: 200,
             sequence_length: 16,
-            audio_sequence: ["hihat", "clap", "trap", "bass"],
-            step_sequence: [
+            notes: ["hihat", "clap", "trap", "bass"],
+            checked: [
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -41,8 +41,8 @@ function makeTracksArray() {
             visible: true,
             tempo: 80,
             sequence_length: 16,
-            audio_sequence: ["hihat", "clap", "trap", "bass"],
-            step_sequence: [
+            notes: ["hihat", "clap", "trap", "bass"],
+            checked: [
                 [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -62,8 +62,8 @@ function makeMaliciousTrack() {
             visible: true,
             tempo: 80,
             sequence_length: 16,
-            audio_sequence: ["hihat", "clap", "trap", "bass"],
-            step_sequence: [
+            notes: ["hihat", "clap", "trap", "bass"],
+            checked: [
                 [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
