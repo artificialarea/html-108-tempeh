@@ -17,7 +17,7 @@ CREATE TABLE tracks (
     visible BOOLEAN NOT NULL,
     tempo INTEGER NOT NULL,
     sequence_length INTEGER NOT NULL,
-    audio_sequence TEXT ARRAY[4],
-    step_sequence INTEGER ARRAY[4],
+    notes TEXT ARRAY[4],
+    checked BOOLEAN ARRAY[4],
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );
