@@ -17,8 +17,8 @@ CREATE TABLE tracks (
     visible BOOLEAN NOT NULL,
     tempo INTEGER NOT NULL,
     sequence_length INTEGER NOT NULL,
-    notes TEXT ARRAY[4],
-    checked BOOLEAN ARRAY[4],
-    -- checked TEXT ARRAY[4],
+    notes TEXT ARRAY NOT NULL,
+    checked BOOLEAN ARRAY NOT NULL,
+    -- checked TEXT ARRAY[4] NOT NULL,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL
 );
