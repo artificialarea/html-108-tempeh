@@ -56,7 +56,8 @@ function makeMaliciousTrack() {
     const maliciousTrack = {
             id: 3, 
             user_id: 1,
-            title: 'Naughty naughty very naughty <script>alert("xss");</script> PLUS Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.', 
+            title: `Naughty naughty very naughty <script>alert("xss");</script> 
+            PLUS Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`, 
             date_modified: new Date().toISOString(),
             visible: true,
             tempo: 80,
@@ -72,10 +73,10 @@ function makeMaliciousTrack() {
     const expectedTrack = {
         ...maliciousTrack,
         title: 
-            `Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt;                                  
+            `Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt; 
             PLUS Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.`, 
-        // line 76: converts script to render it inert
-        // line 77: onerror="alert(document.cookie);" gets removed
+        // first line: converts script to render it inert
+        // second line: onerror="alert(document.cookie);" gets removed
     }
     return {
         maliciousTrack,

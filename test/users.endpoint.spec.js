@@ -4,7 +4,7 @@ const { makeUsersArray, makeMaliciousUser } = require('./users.fixtures')
 const { makeTracksArray } = require('./tracks.fixtures')
 const supertest = require('supertest');
 
-describe.skip(`Users API Endpoints`, () => {
+describe(`Users API Endpoints`, () => {
     let db;
 
     before('make knex instance', () => {
@@ -16,11 +16,8 @@ describe.skip(`Users API Endpoints`, () => {
     });
     after('disconnect from the database', () => db.destroy());
 
-    // before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
-    // afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
-    // before('cleanup', () => db('users').truncate());
-    // afterEach('cleanup', () => db('users').truncate());
-
+    before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
+    afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
 
     describe('GET /api/users', () => {
 
@@ -33,11 +30,6 @@ describe.skip(`Users API Endpoints`, () => {
                 return db
                 .into('users')
                 .insert(testUsers)
-                // .then(() => {})
-                .catch(err => {
-                        console.log(testUsers)
-                        console.log(err)
-                })
             })
             
             it('responds with 200 and all of the users', function () {

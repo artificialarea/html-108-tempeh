@@ -4,19 +4,22 @@ function makeUsersArray() {
             id: 1,
             username: 'admin_node',
             password: 'aaAA11!!',
-            email: 'somebody@somewhere.com'
+            email: 'somebody@somewhere.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 2,
             username: 'Dolfmeister',
             password: 'aaAA11!!',
             email: 'somebody2@somewhere.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
         {
             id: 3,
             username: 'Plastikman',
             password: 'aaAA11!!',
             email: 'somebody3@somewhere.com',
+            date_created: '2029-01-22T16:28:32.615Z',
         },
     ];
 }; 
@@ -27,6 +30,7 @@ function makeMaliciousUser() {
         username: 'Naughty naughty very naughty <script>alert("xss");</script>',
         password: 'aaAA11!!',
         email: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
+        date_created: '2029-01-22T16:28:32.615Z',
     }
     const expectedUser = {
         ...maliciousUser,
