@@ -23,7 +23,7 @@ function makeUsersArray() {
 
 function makeMaliciousUser() {
     const maliciousUser = {
-        id: 1,
+        // id: 1,
         username: 'Naughty naughty very naughty <script>alert("xss");</script>',
         password: 'aaAA11!!',
         email: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,

@@ -38,14 +38,14 @@ describe(`Tracks API Endpoints`, () => {
                     // date_modified: new Date('2029-01-22T16:28:32.615Z'),
                     visible: true, 
                     tempo: 120,
-                    sequence_length: 16,
-                    notes: ["hihat", "clap", "trap", "bass"],
+                    sequence_length: 8,
+                    notes: ["G5", "Eb5", "C5", "G4"],
                     checked: [
-                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-                    ]
+                        [false,false,false,false,false,false,false,false],
+                        [false,false,false,false,false,false,false,false],
+                        [false,false,false,false,false,false,false,false],
+                        [false,false,false,false,false,false,false,false],
+                    ],
                 })
                 .expect(401, { error: 'Unauthorized request' })
         });
@@ -98,9 +98,9 @@ describe(`Tracks API Endpoints`, () => {
                             .into('tracks')
                             .insert(testTracks)
                     })
-                    .catch(err => {
-                        console.log(err)
-                    })
+                    // .catch(err => {
+                    //     console.log(err)
+                    // })
             })
             
             it('responds with 200 and all of the tracks', function () {
