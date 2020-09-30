@@ -16,9 +16,8 @@ describe(`Tracks API Endpoints`, () => {
     });
     after('disconnect from the database', () => db.destroy());
     
-    // before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
-    
-    // afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
+    before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY CASCADE;'));
+    afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY CASCADE;'));
 
     describe('Unauthorized requests', () => {
 
@@ -98,6 +97,17 @@ describe(`Tracks API Endpoints`, () => {
                             .into('tracks')
                             .insert(testTracks)
                     })
+                    // .catch(err => {
+                    //     console.log(err)
+                    // })
+                // return db  
+                //     .into('tracks')
+                //     .insert(testTracks)
+                //     .then(() => {
+                //         // return db
+                //         //     .into('users')
+                //         //     .insert(testUsers)
+                //     })
                     // .catch(err => {
                     //     console.log(err)
                     // })

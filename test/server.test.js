@@ -1,7 +1,7 @@
 const knex = require('knex')
 const app = require('../src/app');
 
-describe.skip('Pancake API:', function () {
+describe('Pancake API:', function () {
     let db;
     let pancakes = [
         {

@@ -16,9 +16,10 @@ describe.skip(`Users API Endpoints`, () => {
     });
     after('disconnect from the database', () => db.destroy());
 
-    before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
-
-    afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
+    // before('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
+    // afterEach('cleanup', () => db.raw('TRUNCATE TABLE tracks, users RESTART IDENTITY;'));
+    // before('cleanup', () => db('users').truncate());
+    // afterEach('cleanup', () => db('users').truncate());
 
 
     describe('GET /api/users', () => {
@@ -27,16 +28,23 @@ describe.skip(`Users API Endpoints`, () => {
         
             const testUsers = makeUsersArray();
             
+            
             beforeEach('insert users into db', () => {
                 return db
                 .into('users')
-                .insert(testUsers);
+                .insert(testUsers)
+                // .then(() => {})
+                .catch(err => {
+                        console.log(testUsers)
+                        console.log(err)
+                })
             })
             
-            it('responds with 200 and all of the tracks', function () {
+            it('responds with 200 and all of the users', function () {
                 return supertest(app)
-                .get('/api/tracks')
-                .expect(200, testTracks)
+                .get('/api/users')
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)  // via setup.js
+                .expect(200, testUsers)
             });
             
         });

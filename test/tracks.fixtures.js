@@ -1,11 +1,10 @@
 function makeTracksArray() {
-
     return [
         {  
             id: 1, 
             user_id: 1,
             title: 'Silencio', 
-            date_modified: new Date('2029-01-22T16:28:32.615Z'),
+            date_modified: '2029-01-22T16:28:32.615Z',
             visible: true, 
             tempo: 120,
             sequence_length: 8,
@@ -21,7 +20,7 @@ function makeTracksArray() {
             id: 2, 
             user_id: 1,
             title: 'FullBlastoff', 
-            date_modified: new Date('2100-05-22T16:28:32.615Z'),
+            date_modified: '2100-05-22T16:28:32.615Z',
             visible: true,
             tempo: 200,
             sequence_length: 8,
@@ -37,7 +36,7 @@ function makeTracksArray() {
             id: 3, 
             user_id: 1,
             title: 'Browser Noise', 
-            date_modified: new Date('1919-12-22T16:28:32.615Z'),
+            date_modified: '1919-12-22T16:28:32.615Z',
             visible: true,
             tempo: 80,
             sequence_length: 8,
@@ -87,5 +86,5 @@ function makeMaliciousTrack() {
 
 module.exports = { 
     makeTracksArray,
-    makeMaliciousTrack
- }
+    makeMaliciousTrack,
+}
