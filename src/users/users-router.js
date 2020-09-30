@@ -14,12 +14,17 @@ const serializeUser = user => ({
     date_created: user.date_created,
 })
 
+const serializeUserLimited = user => ({
+    id: user.id,
+    username: xss(user.username),
+})
+
 usersRouter
     .route('/')
     .get((req, res, next) => {
         UsersService.getAllUsers(req.app.get('db'))
             .then(users => {
-                res.json(users.map(serializeUser))
+                res.json(users.map(serializeUserLimited))
             })
             .catch(next)
     })

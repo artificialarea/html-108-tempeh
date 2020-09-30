@@ -28,14 +28,15 @@ function makeMaliciousUser() {
     const maliciousUser = {
         id: 1,
         username: 'Naughty naughty very naughty <script>alert("xss");</script>',
-        password: 'aaAA11!!',
+        password: 'Naughty naughty very naughty <script>alert("xss");</script>',
         email: `Bad image <img src="https://url.to.file.which/does-not.exist" onerror="alert(document.cookie);">. But not <strong>all</strong> bad.`,
         date_created: '2029-01-22T16:28:32.615Z',
     }
     const expectedUser = {
         ...maliciousUser,
         username: 'Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt;', // converts script to render it inert
-        password: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.` // onerror="alert(document.cookie);" gets removed
+        password: 'Naughty naughty very naughty &lt;script&gt;alert(\"xss\");&lt;/script&gt;', // converts script to render it inert
+        email: `Bad image <img src="https://url.to.file.which/does-not.exist">. But not <strong>all</strong> bad.` // onerror="alert(document.cookie);" gets removed
     }
     return {
         maliciousUser,

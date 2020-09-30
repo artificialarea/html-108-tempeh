@@ -1,8 +1,6 @@
 const knex = require('knex')
 const app = require('../src/app');
 const { makeUsersArray, makeMaliciousUser } = require('./users.fixtures')
-const { makeTracksArray } = require('./tracks.fixtures')
-const supertest = require('supertest');
 
 describe(`Users API Endpoints`, () => {
     let db;
@@ -25,7 +23,6 @@ describe(`Users API Endpoints`, () => {
         
             const testUsers = makeUsersArray();
             
-            
             beforeEach('insert users into db', () => {
                 return db
                 .into('users')
@@ -35,10 +32,57 @@ describe(`Users API Endpoints`, () => {
             it('responds with 200 and all of the users', function () {
                 return supertest(app)
                 .get('/api/users')
-                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)  // via setup.js
-                .expect(200, testUsers)
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`) 
+                .expect(200)
+                .expect(res => {
+                    expect(res.body.id).to.eql(testUsers.id)
+                    expect(res.body.username).to.eql(testUsers.username)
+                })
             });
             
         });
+
+        context('Given an XSS attack user', () => {
+            const testUsers = makeUsersArray();
+            const { maliciousUser, expectedUser} = makeMaliciousUser();
+
+            beforeEach('insert malicious user into db', () => {
+                return db  
+                    .into('users')
+                    .insert(maliciousUser)
+            });
+                
+            it(`removes XSS attack content`, () => {
+                return supertest(app)
+                    .get(`/api/users/${maliciousUser.id}`)
+                    .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+                    .expect(200)
+                    .expect(res => {
+                        expect(res.body.username).to.eql(expectedUser.username)
+                        expect(res.body.password).to.eql(expectedUser.password)
+                        expect(res.body.email).to.eql(expectedUser.email)
+                    })
+            });
+        
+        });
+   
     });
+
+    describe(`POST /api/users`, () => {
+
+        it(`creates a user, responding with 204`, function () {
+            const newUser = {
+                username: 'Test new user', 
+                password: 'aaAA11!!',
+                email: 'somebody3@somewhere.com',
+            };
+            return supertest(app)
+                .post(`/api/users/`)
+                .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+                .send(newUser)
+                .expect(204)
+        });
+    
+    });
+
 });

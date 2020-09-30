@@ -2,8 +2,6 @@ const knex = require('knex');
 const app = require('../src/app');
 const { makeTracksArray, makeMaliciousTrack } = require('./tracks.fixtures');
 const { makeUsersArray } = require('./users.fixtures');
-const supertest = require('supertest');
-const { expect } = require('chai');
 
 describe(`Tracks API Endpoints`, () => {
     let db;
