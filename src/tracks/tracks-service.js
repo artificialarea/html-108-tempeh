@@ -4,6 +4,7 @@ const TracksService = {
         return db
             .from('tracks')
             .select('*')
+            .orderBy('date_modified', 'desc')
     },
     
     getTrackById(db, id) {
