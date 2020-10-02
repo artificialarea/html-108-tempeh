@@ -4,6 +4,7 @@ Deployed to: **https://glacial-forest-14425.herokuapp.com** _(requires Authoriza
 
 Corresponding client repo: **[html-108-app](https://github.com/artificialarea/html-108-app)**
 
+<br />
 
 ## API Documentation
 API TOKEN Authorization required
