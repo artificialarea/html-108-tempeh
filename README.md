@@ -1,12 +1,105 @@
-# HTML-108 Server
+# Capstone: HTML-108
 
-Deployed to: **https://glacial-forest-14425.herokuapp.com** _(requires Authorization)_
+The HTML-108 is a minimal browser-based step synthesizer.
 
-Corresponding client repo: **[html-108-app](https://github.com/artificialarea/html-108-app)**
+A nostalgic nod to the synthesizer hardware of the 1980s, like the seminal [Roland TR-808](https://en.wikipedia.org/wiki/Roland_TR-808), that ushered in several genres of electronic music.
+
+Personally, it also enabled me to explore the wonderful world of the Web Audio API and the Tone.js javascript framework.
 
 <br />
 
-## API Documentation
+## 1. Working Prototype 
+Server and Database deployed to: **https://glacial-forest-14425.herokuapp.com** _(requires Authorization)_
+
+Corresponding client repo: **[html-108-app](https://github.com/artificialarea/html-108-app)**
+
+
+<br />
+
+## 2. Functionality 
+
+Landing page introduces the application...
+
+<img src="https://raw.githubusercontent.com/artificialarea/html-108-app/master/docs/images/screenshot-01-intro.png" alt="intro screen" width="600"/>
+
+User is presented with an interactive step sequencer interface to create a new track...
+
+<img src="https://raw.githubusercontent.com/artificialarea/html-108-app/master/docs/images/screenshot-02-newtrack-blank.png" alt="intro screen" width="600"/>
+
+Users can save, update, and delete their tracks...
+
+<img src="https://raw.githubusercontent.com/artificialarea/html-108-app/master/docs/images/screenshot-03-track-saved.png" alt="intro screen" width="600"/>
+
+All saved tracks are accessible via the community dashboard...
+
+<img src="https://raw.githubusercontent.com/artificialarea/html-108-app/master/docs/images/screenshot-04-dashboard.png" alt="intro screen" width="600"/>
+
+
+<br />
+
+## 3. Technology
+* Front-End: HTML5, CSS3, JavaScript ES6, React, Web Audio API, Tone.js
+* Back-End: Node.js, Express.js, Mocha, Chai, RESTful API Endpoints, Postgres
+* Development Environment: Vercel (client), Heroku (server), DBeaver
+
+
+<br />
+
+## 4. Wireframes
+Preliminary wireframes accessible as ['Greybox' HTML Wireframes](https://artificialarea.github.io/html-108-app/greybox/)
+
+
+<br />
+
+## 5. Front-end Struture: React Components Map
+
+_Components are **stateless** unless otherwise noted. In progress, as may introduce more stateful components._
+
+* **Index.js**
+  * **APP.JS** **(STATEFUL:BRAIN)**
+    * **Nav.js**
+    * **Footer.js**
+    * **Intro.js**
+    * **Dashboard.js**
+    * **AddTrack.js**
+     * **DrumMachine.js** **(STATEFUL)**
+    * **EditTrack.js**
+     * **DrumMachine.js** **(STATEFUL)**
+
+
+<br />
+
+## 6. Back-end Structure
+
+**Schema**
+
+![Schema](https://github.com/artificialarea/html-108-app/blob/master/docs/schema.png)
+
+**Business Objects**
+
+* **Users** (database table)
+  * **id** (primary key, auto-generated)
+  * **username** (validation: NOT NULL; UNIQUE)
+  * **password** (validation: NOT NULL; at least 8 characters, including at least one lowercase, one uppercase, one number, and one special character)
+  * **email** (validation: includes @ character and .com, .org, or .net)
+  * **date_created** (new Date())
+  
+* **tracks** (database table)
+  * **id** (primary key, auto-generated)
+  * **user_id** (foreign key > Users.id)
+  * **title** (defaults to 'Untitled')
+  * **date_modified** (new Date()) 
+  * **visible** (NOT NULL, boolean default false)
+  * **tempo** (NOT NULL, numeric)
+  * **sequence_length** (NOT NULL, numeric)
+  * **notes** (NOT NULL, text)
+  _Data structure associated with step sequence_
+  * **checked** (NOT NULL, BOOLEAN ARRAY)
+
+<br />
+
+
+## 7. API Documentation
 API TOKEN Authorization required
 
 * **`POST`**
@@ -28,6 +121,42 @@ API TOKEN Authorization required
 * **`DELETE`**
   * **`/api/tracks/:trackId`** delete track via `/dashboard` URL
   * **`/api/users`** delete profile
+  
+
+<br />
+
+## Development Roadmap (v1.x)
+<img src="https://raw.githubusercontent.com/artificialarea/html-108-app/master/docs/plan---release.jpg" alt="situation" width="400"/>
+
+Scaled back the ambition and scope of project considerably for v1.o MVP release.
+
+Anticipate future v1.x enhancements to include:
+* User Login via JWT Auth, with personal Dashboard
+* Ability to adjust time signature from 4 to 8 to 12 to 16 beats
+* Ability to adjust pitch
+* Ability to choose samples (e.g. hihat, clap, trap, bass, etc)
+* Ability to download mp3 file of track
+
+
+**[Project Board](https://github.com/artificialarea/html-108-app/projects/1)** featuring bugs and enhancements
+
+<br />
+
+<hr /> 
+
+## How to run it (done)
+Use command line to navigate into the project folder and run the following in terminal
+
+### Local React scripts
+* To install the react project ===> `npm install`
+* To run react (on port 3000) ===> `npm start`
+* To run tests ===> `npm run test`
+
+### Local Node scripts
+* To install the node project ===> `npm install`
+* To migrate the database ===> `npm run migrate -- 1`
+* To run Node server (on port 8000) ===> `npm run dev`
+* To run tests ===> `npm run test`
 
 <br />
 
