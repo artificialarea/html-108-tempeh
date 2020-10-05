@@ -1,3 +1,6 @@
+# dependencies
+config.js
+
 # Logs
 logs
 *.log
