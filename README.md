@@ -13,6 +13,8 @@ Server and Database deployed to: **https://glacial-forest-14425.herokuapp.com** 
 
 Corresponding client repo: **[html-108-app](https://github.com/artificialarea/html-108-app)**
 
+You can access a working prototype of the React app here: **https://html-108.vercel.app**
+
 
 <br />
 
