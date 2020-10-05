@@ -1,5 +1,5 @@
 # dependencies
-config.js
+# config.js ... think this caused issue with deployment to production, tho
 
 # Logs
 logs
