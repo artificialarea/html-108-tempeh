@@ -1,4 +1,12 @@
-# Capstone: HTML-108
+# HTML-108-tempeh
+
+**Experiment** At some point the Postgres DB on Heroku for **HTML-108-server** broke, likely due to some sort of upgrade done by Heroku who doesn't care about hobby dynos. (Seperatately?) I'm having issues migrating and redeploying to production, too.
+
+Due to much of this being a hazy memory, I'm opting to go through the entire process again with a seperate temporary repo and new heroku app to refresh my recollection of all the aspects of deploying to production. Hopefully when I come out the other side I'll realise where the problem lies.
+
+<br />
+
+<hr />
 
 The HTML-108 is a minimal browser-based step synthesizer.
 
