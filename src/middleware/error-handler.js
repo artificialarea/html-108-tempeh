@@ -5,7 +5,9 @@ const {
 module.exports = function errorHandler(error, req, res, next) {
     const response = (NODE_ENV === 'production') ?
         {
-            error: 'Server error'
+            // error: 'Server error'
+            error: 'here is the shizzness' + error.message,
+            details: error
         } :
         (console.error(error), {
             error: error.message,
